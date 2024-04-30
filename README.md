@@ -14,7 +14,8 @@
 - JPA
 
 ## 데이터베이스
-![image](https://github.com/hyeok-kong/hello-spring/assets/70522355/2d14fb7f-e045-46bd-a026-5f993e1afb1b)
+![image](https://github.com/hyeok-kong/hello-spring/assets/70522355/044b8442-c305-4b68-bb97-f0b024fa3ec4)
+
 
 - - -
 기능 추가 시 각 이슈에 변경 사항 기록 예정
