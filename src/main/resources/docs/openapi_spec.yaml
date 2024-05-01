@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: hello-spring API Docs
+  description: |-
+    hello-spring 프로젝트 API 문서입니다.
+    
+    정해진 개발 사항에 대해 문서화를 진행하며, 기능 추가 시 마다 문서를 업데이트, GIT을 통해 코드와 함께 형상관리 할 예정입니다.
+    
+    프로젝트 링크:
+    - [hello-spring](https://github.com/hyeok-kong/hello-spring)
+  version: 1.0.0
+servers:
+  - url: https://localhost:8080/api/
+tags:
+  - name: posts
+    description: action about handling posts
+  
+paths:
+  /posts:
+    get:
+      tags:
+        - posts
+      summary: get post list
+      description: Return a list of paged posts
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      tags:
+        - posts
+      summary: save post
+      description: save the post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                user_id:
+                  type: integer
+      responses:
+        '200':
+          description: Successful operation
+  /posts/{postId}:
+    parameters:
+    - in: path
+      name: postId
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+        - posts
+      summary: search 1 post
+      description: search 1 post by postId
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+        '404':
+          description: Post not founded
+    patch:
+      tags:
+        - posts
+      summary: update post
+      description: update 1 post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        '200': 
+          description: Successful operation
+    delete:
+      tags:
+        - posts
+      summary: delete post
+      description: delete 1 post
+      responses:
+        '200': 
+          description: Successful operation
+        '403': 
+          description: Unauthorized
+components:
+  schemas:
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: unique value that identifies the Member
+          example: 10
+        email:
+          type: string
+          format: email
+          example: example@mail.com
+        password:
+          type: string
+          format: encrypted string
+          description: not confirmed. developing now.
+        nickname:
+          type: string
+          description: user's name used in the service.
+    Posts:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: unique value that identifies the posts
+          example: 325
+        title:
+          type: string
+          description: post's title
+        content:
+          type: string
+          description: post's content
+        view_count:
+          type: integer
+          format: int32
+          description: value that shows how many times it has been viewed
+    Comments:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: unique value that identifies the comments
+          example: 103452
+        content:
+          type: string
+          description: comment's content
