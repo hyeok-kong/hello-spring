@@ -29,7 +29,7 @@ public class Member {
     }
 
     @OneToMany(mappedBy = "member")
-    private List<Posts> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     public void update(String nickname) {
         this.nickname = nickname;

@@ -23,7 +23,7 @@ public class MemberService {
         return member.getId();
     }
 
-    public Member findById(Long id) {
+    public Member findMemberById(Long id) {
         return memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
