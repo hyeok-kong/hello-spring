@@ -1,6 +1,7 @@
 package hello.hellospring.domain;
 
 
+import hello.hellospring.dto.PostDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "title", "content", "viewCount"})
-public class Posts {
+public class Post extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "post_id")
     private Long id;
@@ -26,5 +27,21 @@ public class Posts {
 
     @OneToMany
     @JoinColumn(name = "posts")
-    private List<Comments> comments = new ArrayList<>();
+    private List<Comment> comment = new ArrayList<>();
+
+    @Builder
+    public Post(String title, String content, Member member) {
+        this.title = title;
+        this.content = content;
+        this.member = member;
+    }
+
+    public void update(PostDto.Request request) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
+    }
 }
