@@ -8,7 +8,7 @@ import lombok.*;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "content"})
-public class Comments {
+public class Comment {
 
     @Id @GeneratedValue
     @Column(name = "comment_id")
@@ -22,5 +22,5 @@ public class Comments {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Posts posts;
+    private Post post;
 }
