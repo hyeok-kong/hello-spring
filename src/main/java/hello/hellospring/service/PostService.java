@@ -18,14 +18,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberService memberService;
 
-    public Long saveNewPost(PostDto.Request request) {
+    public void saveNewPost(PostDto.Request request) {
         Post post = request.toEntity(memberService.findMemberById(request.getMemberId()));
-        return postRepository.save(post).getId();
+        postRepository.save(post);
     }
 
-    public Long updatePost(Post post, PostDto.Request request) {
+    public void updatePost(Post post, PostDto.Request request) {
         post.update(request);
-        return post.getId();
     }
 
     public Post findPostById(Long id) {
