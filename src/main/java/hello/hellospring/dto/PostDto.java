@@ -6,8 +6,11 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PostDto {
 
@@ -63,6 +66,14 @@ public class PostDto {
                     .email(posts.getMember().getEmail())
                     .nickname(posts.getMember().getNickname())
                     .build();
+        }
+
+        public static Page<Response> of(Page<Post> posts) {
+            List<Response> pagedPosts = posts.getContent().stream()
+                    .map(Response::of)
+                    .toList();
+
+            return new PageImpl<>(pagedPosts, posts.getPageable(), posts.getTotalElements());
         }
     }
 }
