@@ -18,7 +18,6 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> registerMember(@RequestBody @Valid MemberDto.Request memberDto) {
-        memberService.checkUniqueEmail(memberDto.getEmail());
         memberService.saveMember(memberDto);
         return RESPONSE_OK;
     }
