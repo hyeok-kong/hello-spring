@@ -14,7 +14,9 @@ servers:
 tags:
   - name: posts
     description: action about handling posts
-  
+  - name: members
+    description: register, login, etc...
+
 paths:
   /posts:
     get:
@@ -27,7 +29,7 @@ paths:
           name: page
           schema:
             type: integer
-      
+
       responses:
         '200':
           description: Successful operation
@@ -53,11 +55,11 @@ paths:
           description: Successful operation
   /posts/{postId}:
     parameters:
-    - in: path
-      name: postId
-      required: true
-      schema:
-        type: integer
+      - in: path
+        name: postId
+        required: true
+        schema:
+          type: integer
     get:
       tags:
         - posts
@@ -88,7 +90,7 @@ paths:
                 content:
                   type: string
       responses:
-        '200': 
+        '200':
           description: Successful operation
     delete:
       tags:
@@ -96,10 +98,43 @@ paths:
       summary: delete post
       description: delete 1 post
       responses:
-        '200': 
+        '200':
           description: Successful operation
-        '403': 
+        '403':
           description: Unauthorized
+  /members:
+    post:
+      tags:
+        - members
+      summary: register member
+      description: create new member entity
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Wrong parameter
+        '409':
+          description: Duplicate E-mail
+
+
+  /members/{email}/exists:
+    parameters:
+      - in: path
+        name: email
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - members
+      summary: check duplicate email
+      description: email must be unique item
+      responses:
+        '200':
+          description: Not duplicated
+        '409':
+          description: Duplicate E-mail
+
 components:
   schemas:
     Member:
