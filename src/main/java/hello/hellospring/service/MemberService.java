@@ -1,9 +1,12 @@
 package hello.hellospring.service;
 
 
+import hello.hellospring.common.exception.DuplicateElementException;
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberDto;
 import hello.hellospring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +15,27 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Transactional
-    public Long save(Member member) {
-        memberRepository.save(member);
-        return member.getId();
+    public void saveMember(MemberDto.Request request) {
+        Member entity = request.toEntity(passwordEncoder.encode(request.getPassword()));
+        memberRepository.save(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public void checkUniqueEmail(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new DuplicateElementException("Duplicate Email");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public boolean checkUniqueNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
     }
 
     public Member findMemberById(Long id) {
