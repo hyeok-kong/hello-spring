@@ -22,6 +22,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public void saveMember(MemberDto.Request request) {
+        checkUniqueEmail(request.getEmail());
         Member entity = request.toEntity(passwordEncoder.encode(request.getPassword()));
         memberRepository.save(entity);
     }
