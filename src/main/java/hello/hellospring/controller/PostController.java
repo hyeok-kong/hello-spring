@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static hello.hellospring.common.HttpStatusResponseEntity.RESPONSE_OK;
+
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
@@ -36,19 +38,19 @@ public class PostController {
     @PostMapping
     public ResponseEntity<HttpStatus> savePost(@RequestBody @Valid PostDto.Request request) {
         postService.saveNewPost(request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return RESPONSE_OK;
     }
 
     @PatchMapping("/{postId}")
     public ResponseEntity<HttpStatus> updatePost(@PathVariable Long postId, @RequestBody @Valid PostDto.Request request) {
         Post post = postService.findPostById(postId);
         postService.updatePost(post, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return RESPONSE_OK;
     }
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return RESPONSE_OK;
     }
 }
