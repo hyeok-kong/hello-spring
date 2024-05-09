@@ -48,7 +48,6 @@ class PostServiceTest {
         request = PostDto.Request.builder()
                 .title("테스트")
                 .content("테스트입니다. PostService의 동작을 확인합니다.")
-                .memberId(member.getId())
                 .build();
 
         post = request.toEntity(member);
@@ -63,7 +62,7 @@ class PostServiceTest {
 //        when(postRepository.save(any())).thenReturn(post);
 
         //when
-        postService.saveNewPost(request);
+        postService.saveNewPost(request, member);
 
         //then
         verify(postRepository, times(1)).save(any(Post.class));
