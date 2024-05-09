@@ -1,6 +1,7 @@
 package hello.hellospring.service;
 
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.domain.Post;
 import hello.hellospring.dto.PostDto;
 import hello.hellospring.repository.PostRepository;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -18,11 +18,9 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final MemberService memberService;
 
-
-    public void saveNewPost(PostDto.Request request) {
-        Post post = request.toEntity(memberService.findMemberById(request.getMemberId()));
+    public void saveNewPost(PostDto.Request request, Member member) {
+        Post post = request.toEntity(member);
         postRepository.save(post);
     }
 

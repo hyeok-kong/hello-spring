@@ -1,6 +1,9 @@
 package hello.hellospring.controller;
 
 
+import hello.hellospring.common.annotation.LoginMember;
+import hello.hellospring.common.annotation.LoginRequired;
+import hello.hellospring.domain.Member;
 import hello.hellospring.domain.Post;
 import hello.hellospring.dto.PostDto;
 import hello.hellospring.service.PostService;
@@ -35,12 +38,15 @@ public class PostController {
         return ResponseEntity.ok(PostDto.Response.of(postService.findPostById(postId)));
     }
 
+    @LoginRequired
     @PostMapping
-    public ResponseEntity<HttpStatus> savePost(@RequestBody @Valid PostDto.Request request) {
-        postService.saveNewPost(request);
+    public ResponseEntity<HttpStatus> savePost(@RequestBody @Valid PostDto.Request request,
+                                               @LoginMember Member member) {
+        postService.saveNewPost(request, member);
         return RESPONSE_OK;
     }
 
+    @LoginRequired
     @PatchMapping("/{postId}")
     public ResponseEntity<HttpStatus> updatePost(@PathVariable Long postId, @RequestBody @Valid PostDto.Request request) {
         Post post = postService.findPostById(postId);
@@ -48,6 +54,7 @@ public class PostController {
         return RESPONSE_OK;
     }
 
+    @LoginRequired
     @DeleteMapping("/{postId}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);

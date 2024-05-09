@@ -6,6 +6,7 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberDto;
 import hello.hellospring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,7 +44,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public boolean validatePassword(String inputPassword, String realPassword) {
-        return passwordEncoder.encode(inputPassword).equals(realPassword);
+        return passwordEncoder.matches(inputPassword, realPassword);
     }
 
     @Transactional(readOnly = true)
