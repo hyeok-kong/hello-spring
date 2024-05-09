@@ -110,6 +110,18 @@ paths:
         - members
       summary: register member
       description: create new member entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                nickname:
+                  type: string
       responses:
         '200':
           description: Successful operation
