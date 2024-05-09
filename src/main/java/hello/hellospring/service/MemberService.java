@@ -39,8 +39,19 @@ public class MemberService {
         return memberRepository.existsByNickname(nickname);
     }
 
+    @Transactional(readOnly = true)
+    public boolean validatePassword(String inputPassword, String realPassword) {
+        return passwordEncoder.encode(inputPassword).equals(realPassword);
+    }
+
+    @Transactional(readOnly = true)
     public Member findMemberById(Long id) {
         return memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
     }
 
     public List<Member> findMembers() {
