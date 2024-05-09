@@ -48,11 +48,11 @@ paths:
                   type: string
                 content:
                   type: string
-                user_id:
-                  type: integer
       responses:
         '200':
           description: Successful operation
+        '403':
+          description: Failed to authorize
   /posts/{postId}:
     parameters:
       - in: path
@@ -92,6 +92,8 @@ paths:
       responses:
         '200':
           description: Successful operation
+        '403':
+          description: Unauthorized
     delete:
       tags:
         - posts
