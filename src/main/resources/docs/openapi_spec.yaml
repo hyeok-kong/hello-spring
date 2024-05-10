@@ -48,11 +48,11 @@ paths:
                   type: string
                 content:
                   type: string
-                user_id:
-                  type: integer
       responses:
         '200':
           description: Successful operation
+        '403':
+          description: Failed to authorize
   /posts/{postId}:
     parameters:
       - in: path
@@ -92,6 +92,8 @@ paths:
       responses:
         '200':
           description: Successful operation
+        '403':
+          description: Unauthorized
     delete:
       tags:
         - posts
@@ -108,6 +110,18 @@ paths:
         - members
       summary: register member
       description: create new member entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                nickname:
+                  type: string
       responses:
         '200':
           description: Successful operation

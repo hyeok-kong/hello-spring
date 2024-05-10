@@ -24,14 +24,10 @@ public class PostDto {
         @NotEmpty
         private String content;
 
-        @NotEmpty
-        private Long memberId;
-
         @Builder
-        public Request(String title, String content, Long memberId) {
+        public Request(String title, String content) {
             this.title = title;
             this.content = content;
-            this.memberId = memberId;
         }
 
         public Post toEntity(Member member) {
@@ -44,6 +40,7 @@ public class PostDto {
     }
 
     @Builder
+    @Getter
     public static class Response {
         private Long postId;
         private String title;
@@ -55,16 +52,16 @@ public class PostDto {
         private String email;
         private String nickname;
 
-        public static Response of(Post posts) {
+        public static Response of(Post post) {
             return Response.builder()
-                    .postId(posts.getId())
-                    .title(posts.getTitle())
-                    .content(posts.getContent())
-                    .viewCount(posts.getViewCount())
-                    .createdDate(posts.getCreatedDate())
-                    .updatedDate(posts.getUpdatedDate())
-                    .email(posts.getMember().getEmail())
-                    .nickname(posts.getMember().getNickname())
+                    .postId(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .viewCount(post.getViewCount())
+                    .createdDate(post.getCreatedDate())
+                    .updatedDate(post.getUpdatedDate())
+                    .email(post.getMember().getEmail())
+                    .nickname(post.getMember().getNickname())
                     .build();
         }
 
