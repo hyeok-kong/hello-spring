@@ -18,4 +18,16 @@
 
 
 - - -
+## 형상 관리
+### Github flow 사용
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FJebIK%2FbtsnHSEQSCt%2FswDjNqMH7DS4UdV6kDh9Y0%2Fimg.png)
+
+기존 복잡한 로직을 갖는 Git flow 대신, 소형 프로젝트에 적합한 Github flow 방식의 branch 전략을 사용했습니다.
+- - -
+## 버전 관리
+### OpenAPI Spec 적용
+Swagger UI를 통해 API 문서를 제작, git과 함께 버전 관리를 진행합니다.
+코드 변경에 따른 API 문서 변경을 추적하기에 보다 용이합니다.
+
+- - -
 기능 추가 시 각 이슈에 변경 사항 기록 예정
