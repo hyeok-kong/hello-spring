@@ -9,6 +9,7 @@ import hello.hellospring.domain.Post;
 import hello.hellospring.dto.CommentDto;
 import hello.hellospring.service.CommentService;
 import hello.hellospring.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class CommentController {
     @LoginRequired
     @PostMapping("/{postId}")
     public ResponseEntity<HttpStatus> addComment(@PathVariable Long postId,
-                                                 @RequestBody CommentDto.Request request,
+                                                 @RequestBody @Valid CommentDto.Request request,
                                                  @LoginMember Member member) {
         Post post = postService.findPostById(postId);
         commentService.saveComment(request, post, member);
@@ -46,7 +47,7 @@ public class CommentController {
     @LoginRequired
     @PatchMapping("/{commentId}")
     public ResponseEntity<HttpStatus> updateComment(@PathVariable Long commentId,
-                                                    @RequestBody CommentDto.Request request) {
+                                                    @RequestBody @Valid CommentDto.Request request) {
         Comment comment = commentService.findCommentById(commentId);
         commentService.updateComment(request, comment);
         return RESPONSE_OK;

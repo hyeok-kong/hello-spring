@@ -7,6 +7,8 @@ import hello.hellospring.domain.Post;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,11 +16,13 @@ import java.util.List;
 public class CommentDto {
 
     @Getter
+    @NoArgsConstructor
     public static class Request {
 
         @NotEmpty
         private String content;
 
+        @Builder
         public Request(String content) {
             this.content = content;
         }

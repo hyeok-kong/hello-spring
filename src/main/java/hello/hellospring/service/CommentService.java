@@ -1,5 +1,6 @@
 package hello.hellospring.service;
 
+import hello.hellospring.common.annotation.OwnerOnly;
 import hello.hellospring.common.exception.UnAuthorizationException;
 import hello.hellospring.domain.Comment;
 import hello.hellospring.domain.Member;
@@ -39,12 +40,18 @@ public class CommentService {
         }
     }
 
+    @OwnerOnly(Comment.class)
     public void deleteComment(Comment comment) {
-        if (isOwner(comment)) {
-            Comment mergedComment = entityManager.merge(comment);
-            commentRepository.delete(mergedComment);
-        }
+        Comment mergedComment = entityManager.merge(comment);
+        commentRepository.delete(mergedComment);
     }
+
+//    public void deleteComment(Comment comment) {
+//        if (isOwner(comment)) {
+//            Comment mergedComment = entityManager.merge(comment);
+//            commentRepository.delete(mergedComment);
+//        }
+//    }
 
     public Comment findCommentById(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(NoSuchElementException::new);
